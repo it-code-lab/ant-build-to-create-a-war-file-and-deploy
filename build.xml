@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<project name="WarDemo" basedir="." default="createWar">
+
+    <!-- Property names going to be used in the tasks below. -->
+    <property name="tomcat.dir" value="C:/tomcat"/>
+    <property name="tomcat.deploy.dir" value="${tomcat.dir}/webapps"/>
+    <property name="tomcat.bin.dir" value="${tomcat.dir}/bin"/>
+    <property name="war.filename" value="wardemoapp"></property>
+    <property name="src.dir" value="src"/>
+    <property name="base" value="."/>
+
+
+    <target name="createWar">
+        <echo message="Creating war" />
+        <war warfile="${war.filename}.war" needxmlfile="false">
+            <fileset dir="${src.dir}" />
+        </war>
+        <antcall target="deploytoTomcat" />
+    </target>
+
+    <target name="deploytoTomcat">
+        <echo message="Deploying the war to Tomcat" />
+        <copy file="${war.filename}.war" todir="${tomcat.deploy.dir}" />
+        <antcall target="startupTomcat" />
+    </target>
+
+    <target name="startupTomcat">
+        <echo message="Starting up Tomcat" />
+        <exec executable="${tomcat.bin.dir}/startup.bat"/>
+    </target>
+
+    <target name="shutdownTomcat">
+        <echo message="Starting up Tomcat" />
+        <exec executable="${tomcat.bin.dir}/shutdown.bat"/>
+    </target>
+
+</project>
