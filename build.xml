@@ -30,7 +30,7 @@
     </target>
 
     <target name="shutdownTomcat">
-        <echo message="Starting up Tomcat" />
+        <echo message="Shuting down Tomcat" />
         <exec executable="${tomcat.bin.dir}/shutdown.bat"/>
     </target>
 
